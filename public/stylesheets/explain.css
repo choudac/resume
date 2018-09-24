@@ -1,0 +1,17 @@
+
+.box {
+  width: 100%;
+  height: 800px;
+  background-image: url('https://ws4.sinaimg.cn/large/006tNbRwgy1fvd0v49h7ag30hg0fqwj0.gif');
+}
+
+.box-div {
+  padding: 30%;
+  width: auto;
+  height: auto;
+}
+
+.p-text{
+  font-size: 50px;
+  color: rgb(61, 52, 70);
+}

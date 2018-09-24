@@ -1,0 +1,222 @@
+<link rel="stylesheet" href='/stylesheets/demo.css' />
+
+<div id="app">
+  <div v-for="(list,index) in slideList" class="box"
+       :key="index" 
+       v-show="index===currentIndex" 
+       @mouseenter="stop" 
+       @mouseleave="go"
+  >
+
+  <nav class="navbar navbar-default nav-demo">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <a class="navbar-brand name-demo" href="#">百草堂</a>
+        </div>
+    
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <form class="navbar-form navbar-left">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="三渣草">
+            </div>
+            <button type="submit" class="btn btn-default">搜索</button>
+          </form>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/explain">论坛</a></li>
+            <li><a href="/explain">咨询</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+   
+    <!-- 巨幕轮换 -->
+    <div class="row">
+      <div class="col-md-6  box-text">
+        <h2>
+          {{ list.name }}
+        </h2>
+        <br><br>
+        <p>
+          {{ list.description }}
+        </p>
+      </div>
+
+      <div class="col-xs-offset-4 col-md-offset-6">
+        <a :href="list.clickUrl">
+          <img :src="list.image" :alt="list.name">
+        </a>
+      </div>
+    </div><!-- 巨幕轮换-row -->
+  </div><!-- box -->
+ 
+  <!-- 图片转换游标 -->
+  <div class="carousel-items">
+    <span v-for="(item,index) in slideList.length" 
+          :class="{'active':index===currentIndex}" 
+          @mouseover="change(index)"
+    >
+    </span>
+  </div>
+
+  <br><br>
+ 
+  <!-- 产品平铺展示 -->
+  <div class="row static-wrap">
+
+    <!-- 产品分类导航条 -->
+    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+      <div class="btn-group" role="group">
+        <a href="/explain">
+          <button type="button" class="btn btn-default">根类</button>
+        </a>
+      </div>
+
+      <div class="btn-group" role="group">
+        <a href="/explain">
+           <button type="button" class="btn btn-default">叶类</button>
+        </a>
+      </div>
+
+      <div class="btn-group" role="group">
+         <a href="/explain">
+           <button type="button" class="btn btn-default">花类</button>
+         </a>
+      </div>
+
+      <div class="btn-group" role="group">
+         <a href="/explain">
+            <button type="button" class="btn btn-default">皮类</button>
+          </a>
+      </div>
+    </div> <!-- btn-group -->
+    
+    <!-- 产品展示 -->
+    <div class="row picture-items">
+      <div class="col-sm-6 col-md-3" v-for="(list,index) in solidList" :key="index">
+        <div class="thumbnail pic">
+          <img :src="list.image" alt="...">
+          <div class="caption">
+            <p><a href="/explain" class="btn btn-primary" role="button">{{ list.name }}</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- 产品平铺-row -->
+
+</div><!-- app -->
+<script>
+
+  new Vue({
+    el: '#app',
+    data: {
+      slideList: [  //巨幕轮换-数据。
+        {
+          "clickUrl": "/explain",
+          "name": "人参",
+          "description": "人参是亚洲常见药材,用于愈后恢复、增强体力、调节荷尔蒙、降低血糖和控制血压、控制肝指数和肝功能保健等。",
+          "image": "https://ws4.sinaimg.cn/large/006tNbRwly1fvcpcyt00lg30n60n6n0n.gif"
+        },
+        {
+          "clickUrl": "/explain",
+          "name": "黄精",
+          "description": "黄精性味甘甜，含有大量淀粉、糖分、胡萝卜素、维生素，可令人气力倍增、肌肉充盈、骨髓坚强，对身体十分有益。",
+          "image": "https://ws1.sinaimg.cn/large/006tNbRwly1fvcpcxyygxg30m80m90y0.gif"
+        },
+        {
+          "clickUrl": "/explain",
+          "name": "枸杞",
+          "description": "枸杞其中药名为地骨子，滋补肝肾，益精明目。用于虚劳精亏，腰膝酸痛，眩晕耳鸣，内热消渴，血虚萎黄，目昏不明。",
+          "image": "https://ws3.sinaimg.cn/large/006tNbRwly1fvcpcx2dqug31b11b14nu.gif"
+        },
+        {
+          "clickUrl": "/explain",
+          "name": "白芍",
+          "description": "白芍是蓄根草本，味苦酸，性凉，入肝、脾经。白芍的功效为养血敛银、柔肝止痛、平抑肝阳。",
+          "image": "https://ws4.sinaimg.cn/large/006tNbRwly1fvcpcv8vlsg30my0mytcm.gif"
+        }
+      ],
+      solidList: [  //产品平铺展示-数据。
+        {
+          "clickUrl": "#",
+          "name": "红景天",
+          "description": "...",
+          "image": "https://ws3.sinaimg.cn/large/006tNbRwly1fvcohibebkg31gs1gsnd8.gif"
+        },
+        {
+          "clickUrl": "#",
+          "name": "何首乌",
+          "description": "...",
+          "image": "https://ws1.sinaimg.cn/large/006tNbRwly1fvcoox3nsyg30h00h0wip.gif"
+        },
+        {
+          "clickUrl": "#",
+          "name": "乌梅子",
+          "description": "...",
+          "image": "https://ws2.sinaimg.cn/large/006tNbRwly1fvcohfm4hmg30qo0qo7eg.gif"
+        },
+        {
+          "clickUrl": "#",
+          "name": "山楂草",
+          "description": "...",
+          "image": "https://ws2.sinaimg.cn/large/006tNbRwly1fvcohh6ix6g30ij0ijq7a.gif"
+        },
+        {
+          "clickUrl": "#",
+          "name": "三七花",
+          "description": "...",
+          "image": "https://ws4.sinaimg.cn/large/006tNbRwly1fvcohgccwog30gj0gjt9n.gif"
+        },
+        {
+          "clickUrl": "#",
+          "name": "铜钱草",
+          "description": "...",
+          "image": "https://ws1.sinaimg.cn/large/006tNbRwly1fvcohk670qg30pt0putc8.gif"
+        },
+        {
+          "clickUrl": "#",
+          "name": "艾草",
+          "description": "...",
+          "image": "https://ws1.sinaimg.cn/large/006tNbRwly1fvcooxtvbgg30l30l3dht.gif"
+        },
+        {
+          "clickUrl": "#",
+          "name": "天竺葵",
+          "description": "...",
+          "image": "https://ws4.sinaimg.cn/large/006tNbRwly1fvcohjalsgg30iz0izwkb.gif"
+        },
+      ],
+      currentIndex: 0, //当前指标。
+      timer: ''        //轮换时间。
+    },
+    methods: {
+      go() {           //mouseleave 正常轮换。
+        this.timer = setInterval(() => {
+          this.autoPlay()
+        }, 4000)
+      },
+      stop() {        //mouseenter 停止轮换。
+        clearInterval(this.timer)
+        this.timer = null
+      },
+      change(index) {   //把当前指标换为鼠标所覆盖的指标。
+        this.currentIndex = index
+      },
+      autoPlay() {     //产品数组内自动轮换。
+        this.currentIndex++
+        if (this.currentIndex > this.slideList.length - 1) {
+          this.currentIndex = 0
+        }
+      }
+    },
+    created() {    //转换时间。
+      this.$nextTick(() => {
+        this.timer = setInterval(() => {
+          this.autoPlay()
+        }, 4000)
+      })
+    }
+  })
+
+</script>
